@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: oracle-database
+  labels:
+    app: db
+spec:
+  containers:
+    - image: oracle/database:12.2.0.1-se2
+      name: oracle-database
+      imagePullPolicy: Never
+      ports:
+        - containerPort: 1521
+        - containerPort: 5500
+      env:
+        - name: ORACLE_PWD
+          value: "namtt"
+      volumeMounts:
+        - mountPath: "/opt/oracle/oradata"
+          name: oracle-database-storage
+  volumes:
+    - name: oracle-database-storage
+      persistentVolumeClaim:
+        claimName: oracle-database-claim

@@ -1,0 +1,10 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.beta.kubernetes.io/is-default-class: "false"
+  labels:
+    addonmanager.kubernetes.io/mode: EnsureExists
+  name: manual
+provisioner: k8s.io/minikube-hostpath
+volumeBindingMode: Immediate
