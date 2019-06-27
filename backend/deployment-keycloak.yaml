@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deplyment-keycloak
+spec:
+  replicas: 1
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      name: keycloak
+      labels:
+        app: keycloak
+    spec:
+      containers:
+        - image: keycloak:4.6.0.Final
+          name: keycloak
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: KEYCLOAK_USER
+              value: "administrator"
+            - name: KEYCLOAK_PASSWORD
+              value: "administrator"

@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deplyment-frontend
+spec:
+  replicas: 1
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      name: frontend
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - image: frontend:latest
+          name: frontend
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 80

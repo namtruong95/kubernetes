@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deplyment-database
+spec:
+  replicas: 1
+  minReadySeconds: 15
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      name: oracle-database
+      labels:
+        app: db
+    spec:
+      containers:
+        - image: oracle/database:12.2.0.1-se2
+          name: oracle-database
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 1521
+            - containerPort: 5500
+          env:
+            - name: ORACLE_PWD
+              value: "namtt"
+          volumeMounts:
+            - mountPath: "/opt/oracle/oradata"
+              name: oracle-database-storage
+      volumes:
+        - name: oracle-database-storage
+          persistentVolumeClaim:
+            claimName: oracle-database-claim
