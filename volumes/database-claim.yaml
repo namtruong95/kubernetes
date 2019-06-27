@@ -3,6 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: oracle-database-claim
 spec:
+  storageClassName: local-storage-class
   accessModes:
     - ReadWriteOnce
   resources:

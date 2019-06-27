@@ -5,6 +5,6 @@ metadata:
     storageclass.beta.kubernetes.io/is-default-class: "false"
   labels:
     addonmanager.kubernetes.io/mode: EnsureExists
-  name: manual
+  name: local-storage-class
 provisioner: k8s.io/minikube-hostpath
 volumeBindingMode: Immediate
